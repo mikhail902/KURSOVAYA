@@ -11,6 +11,9 @@ black = "^24.10.0"
 mypy = "^1.14.1"
 isort = "^5.13.2"
 flake8 = "^7.1.1"
+pytest = "^8.3.4"
+requests = "^2.32.3"
+python-dotenv = "^1.0.1"
 
 
 [build-system]
