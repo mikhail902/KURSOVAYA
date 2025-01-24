@@ -1,10 +1,12 @@
 import os
 
+import pandas as pd
 import requests
 from dotenv import load_dotenv
 
 load_dotenv(".env")
 API_KEY = os.getenv("API_KEY")
+PATH_TO_EXCEL = "C:/Users/Sator/PycharmProjects/KURSOVAYA/data/operations.xlsx"
 
 
 def conversion(dictionary: dict) -> any:
@@ -23,20 +25,15 @@ def conversion(dictionary: dict) -> any:
         return "Ошибка конвертации, закончился лимит запросов на перевод валюты"
 
 
-
-a={
-    "id": 41428829,
-    "state": "EXECUTED",
-    "date": "2019-07-03T18:35:29.512364",
-    "operationAmount": {
-      "amount": "8221.37",
-      "currency": {
-        "name": "USD",
-        "code": "USD"
-      }
-    },
-    "description": "Перевод организации",
-    "from": "MasterCard 7158300734726758",
-    "to": "Счет 35383033474447895560"
-  }
-print(conversion(a))
+def excel_transaction(file_path: str) -> list:
+    """Функция считывающая строки из эксель файла и превращающая в список словарей из строк файла"""
+    try:
+        df = pd.read_excel(file_path)
+        list_of_dicts = df.to_dict(orient="records")
+        return list_of_dicts
+    except FileNotFoundError:
+        print(f"Ошибка: Файл не найден по пути: {file_path}")
+        return []
+    except Exception as e:
+        print(f"Ошибка при чтении файла: {e}")
+        return []
