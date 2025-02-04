@@ -1,23 +1,23 @@
-[tool.poetry]
-name = "kurs"
+[project]
+name = "kursovaya"
 version = "0.1.0"
 description = ""
-authors = ["миша <misatoropkov@gmail.com>"]
+authors = [
+    {name = "misha"}
+]
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = "^3.13"
-black = "^24.10.0"
-mypy = "^1.14.1"
-isort = "^5.13.2"
-flake8 = "^7.1.1"
-pytest = "^8.3.4"
-requests = "^2.32.3"
-python-dotenv = "^1.0.1"
-pandas = "^2.2.3"
-openpyxl = "^3.1.5"
+requires-python = ">=3.13"
+dependencies = [
+    "requests (>=2.32.3,<3.0.0)",
+    "openpyxl (>=3.1.5,<4.0.0)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)",
+    "black (>=25.1.0,<26.0.0)",
+    "isort (>=6.0.0,<7.0.0)",
+    "pytest (>=8.3.4,<9.0.0)"
+]
 
 
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
