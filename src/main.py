@@ -3,12 +3,13 @@ import json
 import requests
 
 
-def get_usd_exchange_rate(api_key, base_currency="USD", target_currency="RUB"):
-    url = "https://api.apilayer.com/currency_data/live"
+def get_usd_exchange_rate(api_key1, base_currency="USD", target_currency="RUB"):
+    """Функция обмена валюты по курсу"""
+    path = "https://api.apilayer.com/currency_data/live"
     headers = {"apikey": api_key}
     params = {"currencies": target_currency, "source": base_currency}
     try:
-        response = requests.get(url, headers=headers, params=params)
+        response = requests.get(path, headers=headers, params=params)
         response.raise_for_status()
         data = response.json()
         if data and data.get("success"):
