@@ -1,8 +1,8 @@
 import datetime
 import os
 from collections import defaultdict
-from datetime import datetime, timedelta
-import datetime
+from datetime import timedelta
+
 import pandas as pd
 import requests
 from dotenv import load_dotenv
@@ -57,21 +57,6 @@ def get_transactions_by_card(file_path: str) -> dict:
             if card_number != "nan":
                 transactions_by_card[card_number] = transaction_amount
     return transactions_by_card
-
-
-def time_of_day():
-    """Функция считывания времени суток"""
-    time_now = datetime.now()
-    h = int(time_now.strftime("%H"))
-    if h < 18 | h > 12:
-        now_time = "Добрый день"
-    elif h > 18 | h < 22:
-        now_time = "Добрый вечер"
-    elif h > 4 | h < 12:
-        now_time = "Доброе утро"
-    else:
-        now_time = "Доброй ночи"
-    return now_time
 
 
 def sort_transactions_by_amount(transactions_dict: dict, reverse=True) -> list:
@@ -163,7 +148,7 @@ def filter_transactions_by_range(
 ) -> list:
     """Функция фильтрации операций по дате с диапазоном"""
     try:
-        target_date = datetime.strptime(target_date_str, "%d.%m.%Y").date()
+        target_date = datetime.datetime.strptime(target_date_str, "%d.%m.%Y").date()
     except ValueError:
         print("Ошибка: Неверный формат целевой даты. Используйте формат 'DD.MM.YYYY'.")
         return []
@@ -173,7 +158,7 @@ def filter_transactions_by_range(
             continue
         try:
             transaction_date_str = transaction["Дата платежа"]
-            transaction_date = datetime.strptime(
+            transaction_date = datetime.datetime.strptime(
                 str(transaction_date_str), "%d.%m.%Y"
             ).date()
         except ValueError:
@@ -216,7 +201,9 @@ def calculate_expenses_by_category(transactions: list) -> list:
             category_expenses[category] += amount
     result_list = []
     for category, total_expense in category_expenses.items():
-        result_list.append({"Категория": category, "потрачено": round(abs(total_expense), 2)})
+        result_list.append(
+            {"Категория": category, "потрачено": round(abs(total_expense), 2)}
+        )
     return result_list
 
 
@@ -253,6 +240,10 @@ def sum_for_ap_categories(transactions: list) -> list:
     new_list.append({"category": "Кэшбэк за обычные покупки", "amount": abs(pr)})
     return new_list
 
+
+import datetime
+
+
 def analyze_for_cashback(data: list, y, m):
     """Функция анализирующая повышенный кешбэк"""
     new_list = []
@@ -260,9 +251,12 @@ def analyze_for_cashback(data: list, y, m):
     date_obj_start = datetime.datetime(day=1, month=m, year=y)
     date_obj_end = datetime.datetime(day=28, month=m, year=y)
     for dicts in sorted_by_date:
-        if str(dicts['Дата платежа']) != 'nan':
-            transaction_date = datetime.datetime.strptime(str(dicts['Дата платежа']), "%d.%m.%Y")
-            if (transaction_date > date_obj_start) and (transaction_date < date_obj_end):
+        if str(dicts["Дата платежа"]) != "nan":
+            transaction_date = datetime.datetime.strptime(
+                str(dicts["Дата платежа"]), "%d.%m.%Y"
+            )
+            if (transaction_date > date_obj_start) and (
+                transaction_date < date_obj_end
+            ):
                 new_list.append(dicts)
     return new_list
-
