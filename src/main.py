@@ -41,10 +41,6 @@ def get_usd_exchange_rate(api_key1, base_currency="USD", target_currency="RUB"):
         return None
 
 
-"""if __name__ == "__main__":
-    api_key = "tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"
-    exchange_rate = get_usd_exchange_rate(api_key)
-"""
 if __name__ == "__main__":
     user_input = input(
         f"""Выберете, что вас интересует
