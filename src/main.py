@@ -33,7 +33,6 @@ def get_usd_exchange_rate(api_key1, base_currency="USD", target_currency="RUB"):
         else:
             print(f"Ошибка: Не удалось получить курс обмена. Ответ API: {data}")
             return None
-
     except requests.exceptions.RequestException as e:
         print(f"Ошибка запроса API: {e}")
         return None
