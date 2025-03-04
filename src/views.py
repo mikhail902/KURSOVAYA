@@ -57,20 +57,3 @@ def events(path, transactions, target_date_str, range_type="m"):
             "currency_rate": [],
         }
         json.dump(data, f, indent=4, ensure_ascii=False)
-
-
-if __name__ == "__main__":
-    trans_list = excel_transaction(PATH_TO_EXCEL)
-    str_user = input(
-        f"""Какую страницу открыть?
-1. Главная              2. События 
-                \n"""
-    )
-    if str_user == "1":
-        home(PATH_TO_JSON)
-
-    elif str_user == "2":
-        str_data = input("Введите дату для поиска\n")
-        events(PATH_TO_JSON, trans_list, str_data)
-
-    print("Ответ успешно записан в JSON-файл!")
