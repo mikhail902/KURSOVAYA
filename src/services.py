@@ -2,7 +2,7 @@ import json
 import re
 
 from src.views import PATH_TO_JSON
-from utils import *
+from src.utils import *
 
 
 def function_for_search(user_input: str) -> list:
@@ -14,6 +14,9 @@ def function_for_search(user_input: str) -> list:
         description = str(dicts["Описание"])
         if pattern.search(categories) or pattern.search(description):
             result.append(dicts)
+    for i in result:
+        if type(i["Кэшбэк"]) == float:
+            i["Кэшбэк"] = 0
     return result
 
 

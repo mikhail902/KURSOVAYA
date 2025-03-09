@@ -1,7 +1,7 @@
-import datetime
+
 from datetime import datetime, timedelta
 from typing import Optional
-
+import datetime
 import pandas as pd
 
 
@@ -23,6 +23,9 @@ def spending_by_category(
                 transaction_date <= (dates + datetime.timedelta(weeks=13))
             ):
                 new_list.append(dicts)
+    for i in new_list:
+        if type(i["Кэшбэк"]) == float:
+            i["Кэшбэк"] = 0
     return new_list
 
 
