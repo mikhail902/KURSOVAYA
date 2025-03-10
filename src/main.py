@@ -11,7 +11,7 @@ from views import *
 def get_usd_exchange_rate(api_key1, base_currency="USD", target_currency="RUB"):
     """Функция обмена валюты по курсу"""
     path = "https://api.apilayer.com/currency_data/live"
-    headers = {"apikey": api_key}
+    headers = {"apikey": "api_key"}
     params = {"currencies": target_currency, "source": base_currency}
     try:
         response = requests.get(path, headers=headers, params=params)

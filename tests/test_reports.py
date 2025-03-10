@@ -6,7 +6,6 @@ PATH_TO_EXCEL = "/Users/anastas2006/Downloads/KURSOVAYA/data/operations.xlsx"
 df = pd.read_excel(PATH_TO_EXCEL)
 
 
-
 def test_spending_by_workday(spending_test, spending_by_category_test):
     assert spending_by_workday(df, "02.02.2020") == {
         "Выходной день": 333.74,
