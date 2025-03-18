@@ -7,6 +7,7 @@ import pandas as pd
 def spending_by_category(
     transactions: pd.DataFrame, category: str, date: Optional[str] = None
 ) -> list:
+    """Функция трат по категория"""
     new_list = []
     if date == "":
         dates = datetime.datetime.now()
@@ -29,6 +30,7 @@ def spending_by_category(
 
 
 def spending_by_weekday(transactions: pd.DataFrame, date: Optional[str] = None) -> dict:
+    """Функция трат по дням недели"""
     new_dict = {}
     if date == "":
         dates = datetime.datetime.now()
@@ -55,6 +57,7 @@ def spending_by_weekday(transactions: pd.DataFrame, date: Optional[str] = None) 
 
 
 def spending_by_workday(transactions: pd.DataFrame, date: Optional[str] = None) -> dict:
+    """Функция трат по выходным и рабочим дням"""
     sum_workday, sum_weekday = 0, 0
     count_sum_workday, count_sum_weekday = 0, 0
     if date == "":

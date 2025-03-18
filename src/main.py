@@ -106,31 +106,9 @@ if __name__ == "__main__":
     elif user_input == "3":
         df = pd.read_excel(PATH_TO_EXCEL)
         user_input = input(
-            """\n1. Траты по категориям
-2. Траты по дням недели
-3. Траты в рабочий/выходной день\n"""
+            """\n1. Траты в рабочий/выходной день\n"""
         )
         if user_input == "1":
-            with open(PATH_TO_JSON, "w", encoding="utf-8") as f:
-                json.dump(
-                    spending_by_category(df, "Каршеринг", "23.07.2021"),
-                    f,
-                    indent=4,
-                    ensure_ascii=False,
-                )
-                print("Ответ записан в JSON-файл!")
-
-        elif user_input == "2":
-            with open(PATH_TO_JSON, "w", encoding="utf-8") as f:
-                json.dump(
-                    spending_by_weekday(df, "23.07.2021"),
-                    f,
-                    indent=4,
-                    ensure_ascii=False,
-                )
-                print("Ответ записан в JSON-файл!")
-
-        elif user_input == "3":
             with open(PATH_TO_JSON, "w", encoding="utf-8") as f:
                 json.dump(
                     spending_by_workday(df, "23.07.2021"),
