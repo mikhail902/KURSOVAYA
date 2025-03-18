@@ -6,6 +6,7 @@ from src.utils import *
 
 
 def function_for_search(user_input: str) -> list:
+    """Фуункция поиска по категориям или описанию"""
     default_data = excel_transaction(PATH_TO_EXCEL)
     result = []
     pattern = re.compile(re.escape(user_input), re.IGNORECASE)
@@ -21,6 +22,7 @@ def function_for_search(user_input: str) -> list:
 
 
 def categories_with_up_cashback(data, year, month):
+    """Функция поиска операция с повышенным кэшбеком"""
     dict_of_categories = {}
     new_list_with_current_data = analyze_for_cashback(data, year, month)
     for dicts in new_list_with_current_data:
@@ -37,6 +39,7 @@ def categories_with_up_cashback(data, year, month):
 def investment_bank(
     month: str, transactions: list[dict[str, any]], limit: float
 ) -> list:
+    """Фуекция логики страницы инвесткопилка"""
     sorted_by_date = sort_by_date(transactions)
     new_list = []
     sum_invest = 0.0
