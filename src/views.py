@@ -34,8 +34,7 @@ def home(path: str) -> any:
                 "top_transactions": sort_list,
                 "currency_rates": get_usd_rate_apilayer_convert(
                     "tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"
-                ),
-                "stock_prices": {},
+                )
             }
             json.dump(data, f, indent=4, ensure_ascii=False)
             return data
