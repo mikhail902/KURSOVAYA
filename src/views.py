@@ -3,8 +3,8 @@ from datetime import datetime
 
 from src.utils import *
 
-PATH_TO_EXCEL = "/Users/anastas2006/Downloads/KURSOVAYA/data/operations.xlsx"
-PATH_TO_JSON = "/Users/anastas2006/Downloads/KURSOVAYA/data/answer.json"
+PATH_TO_EXCEL = "C:/Users/Sator/PycharmProjects/KURSOVAYA/data/operations.xlsx"
+PATH_TO_JSON = "C:/Users/Sator/PycharmProjects/KURSOVAYA/data/answer.json"
 
 
 def time_of_day():
@@ -32,7 +32,9 @@ def home(path: str) -> any:
                 "greeting": time_of_day(),
                 "cards": sort_transactions_by_amount(dict_of_excel_file),
                 "top_transactions": sort_list,
-                "currency_rates": {"currency": " ", "rate": " "},
+                "currency_rates": get_usd_rate_apilayer_convert(
+                    "tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"
+                ),
                 "stock_prices": {},
             }
             json.dump(data, f, indent=4, ensure_ascii=False)
@@ -54,6 +56,8 @@ def events(path, transactions, target_date_str, range_type="m"):
             },
             "transfers_and_cash": sum_for_two_categories(filtered_list_by_date),
             "income": sum_for_ap_categories(filtered_list_by_date),
-            "currency_rate": [],
+            "currency_rate": get_usd_rate_apilayer_convert(
+                "tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"
+            ),
         }
         json.dump(data, f, indent=4, ensure_ascii=False)

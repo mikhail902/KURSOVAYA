@@ -2,7 +2,7 @@ import pytest
 
 from src.reports import *
 
-PATH_TO_EXCEL = "/Users/anastas2006/Downloads/KURSOVAYA/data/operations.xlsx"
+PATH_TO_EXCEL = "C:/Users/Sator/PycharmProjects/KURSOVAYA/data/operations.xlsx"
 df = pd.read_excel(PATH_TO_EXCEL)
 
 

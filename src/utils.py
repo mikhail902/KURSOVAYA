@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv(".env")
 API_KEY = os.getenv("API_KEY")
-PATH_TO_EXCEL = "/Users/anastas2006/Downloads/KURSOVAYA/data/operations.xlsx"
+PATH_TO_EXCEL = "C:/Users/Sator/PycharmProjects/KURSOVAYA/data/operations.xlsx"
 API_KEY1 = "tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"
 
 
@@ -260,3 +260,35 @@ def analyze_for_cashback(data: list, y, m):
             ):
                 new_list.append(dicts)
     return new_list
+
+
+import requests
+
+
+def get_usd_rate_apilayer_convert(api_key):
+
+    api_url = "https://api.apilayer.com/exchangerates_data/convert"
+    headers = {"apikey": api_key}
+    params = {"to": "RUB", "from": "USD", "amount": 1}
+    try:
+        response = requests.get(api_url, headers=headers, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        if "result" in data:
+            usd_rate = data["result"]
+        else:
+            print("Не удалось найти курс доллара в JSON ответе (apilayer /convert).")
+            print(data)
+            return None
+
+        return {"currency": "USD", "rate": str(usd_rate)}
+    except requests.exceptions.RequestException as e:
+        print(f"Ошибка при выполнении запроса (apilayer /convert): {e}")
+        return None
+    except ValueError as e:
+        print(f"Ошибка при разборе JSON (apilayer /convert): {e}")
+        return None
+    except KeyError as e:
+        print(f"Ошибка: Не найден ключ {e} в ответе API (apilayer /convert)")
+        return None
