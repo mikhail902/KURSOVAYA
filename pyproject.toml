@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "k"
+version = "0.1.0"
+description = ""
+authors = ["misha"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+black = "^25.1.0"
+pandas = "^2.2.3"
+requests = "^2.32.3"
+pytest = "^8.3.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
