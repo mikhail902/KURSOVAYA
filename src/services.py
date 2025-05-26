@@ -26,19 +26,14 @@ def categories_with_up_cashback(data, year, month):
     dict_of_categories = {}
     new_list_with_current_data = analyze_for_cashback(data, year, month)
     for dicts in new_list_with_current_data:
-        if (
-            dicts["Категория"] not in dict_of_categories
-            and str(dicts["Кэшбэк"]) != "nan"
-        ):
+        if dicts["Категория"] not in dict_of_categories and str(dicts["Кэшбэк"]) != "nan":
             dict_of_categories[dicts["Категория"]] = int(dicts["Кэшбэк"])
         elif dicts["Категория"] in dict_of_categories and str(dicts["Кэшбэк"]) != "nan":
             dict_of_categories[dicts["Категория"]] += int(dicts["Кэшбэк"])
     return dict_of_categories
 
 
-def investment_bank(
-    month: str, transactions: list[dict[str, any]], limit: float
-) -> list:
+def investment_bank(month: str, transactions: list[dict[str, any]], limit: float) -> list:
     """Фуекция логики страницы инвесткопилка"""
     sorted_by_date = sort_by_date(transactions)
     new_list = []
@@ -46,9 +41,7 @@ def investment_bank(
     default_date = datetime.datetime.strptime(month, "%m.%Y")
     for dicts in sorted_by_date:
         if str(dicts["Дата платежа"]) != "nan":
-            transaction_date = datetime.datetime.strptime(
-                str(dicts["Дата платежа"]), "%d.%m.%Y"
-            )
+            transaction_date = datetime.datetime.strptime(str(dicts["Дата платежа"]), "%d.%m.%Y")
             if transaction_date == default_date:
                 new_list.append(dicts)
     for dicts in new_list:

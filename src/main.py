@@ -38,24 +38,16 @@ if __name__ == "__main__":
                            """
         )
         if user_input == "1":
-            year = int(
-                input(
-                    "Введите год, который нужно проанализировать на повышенный кешбэк\n"
-                )
-            )
+            year = int(input("Введите год, который нужно проанализировать на повышенный кешбэк\n"))
             month = int(input("Введите месяц\n"))
             with open(PATH_TO_JSON, "w", encoding="utf-8") as f:
-                data = categories_with_up_cashback(
-                    excel_transaction(PATH_TO_EXCEL), year, month
-                )
+                data = categories_with_up_cashback(excel_transaction(PATH_TO_EXCEL), year, month)
                 json.dump(data, f, indent=4, ensure_ascii=False)
             print("Ответ записан в JSON-файл!")
 
         if user_input == "2":
             with open(PATH_TO_JSON, "w", encoding="utf-8") as f:
-                month = input(
-                    "Введите месяц, который нужно проанализировать на инвесткопилку\n"
-                )
+                month = input("Введите месяц, который нужно проанализировать на инвесткопилку\n")
                 limit = int(input("Введите предел округления\n"))
                 data = f"Сумма, которую можно было отложить отложить в «Инвесткопилку» {investment_bank(month, excel_transaction(PATH_TO_EXCEL), limit)}"
                 json.dump(data, f, indent=4, ensure_ascii=False)
@@ -64,9 +56,7 @@ if __name__ == "__main__":
         if user_input == "3":
             with open(PATH_TO_JSON, "w", encoding="utf-8") as f:
                 main_input = input("Введите строку для поиска операций\n")
-                json.dump(
-                    function_for_search(main_input), f, indent=4, ensure_ascii=False
-                )
+                json.dump(function_for_search(main_input), f, indent=4, ensure_ascii=False)
             print("Ответ записан в JSON-файл!")
 
     elif user_input == "3":

@@ -4,9 +4,7 @@ import datetime
 import pandas as pd
 
 
-def spending_by_category(
-    transactions: pd.DataFrame, category: str, date: Optional[str] = None
-) -> list:
+def spending_by_category(transactions: pd.DataFrame, category: str, date: Optional[str] = None) -> list:
     """Функция трат по категория"""
     new_list = []
     if date == "":
@@ -16,12 +14,8 @@ def spending_by_category(
     list_of_dicts = transactions.to_dict(orient="records")
     for dicts in list_of_dicts:
         if str(dicts["Категория"]) == category:
-            transaction_date = datetime.datetime.strptime(
-                str(dicts["Дата платежа"]), "%d.%m.%Y"
-            )
-            if (transaction_date >= dates) and (
-                transaction_date <= (dates + datetime.timedelta(weeks=13))
-            ):
+            transaction_date = datetime.datetime.strptime(str(dicts["Дата платежа"]), "%d.%m.%Y")
+            if (transaction_date >= dates) and (transaction_date <= (dates + datetime.timedelta(weeks=13))):
                 new_list.append(dicts)
     for i in new_list:
         if type(i["Кэшбэк"]) == float:
@@ -39,20 +33,12 @@ def spending_by_weekday(transactions: pd.DataFrame, date: Optional[str] = None) 
     list_of_dicts = transactions.to_dict(orient="records")
     for dicts in list_of_dicts:
         if str(dicts["Дата платежа"]) != "nan":
-            transaction_date = datetime.datetime.strptime(
-                str(dicts["Дата платежа"]), "%d.%m.%Y"
-            )
-            if (transaction_date >= dates) and (
-                transaction_date <= (dates + datetime.timedelta(weeks=13))
-            ):
+            transaction_date = datetime.datetime.strptime(str(dicts["Дата платежа"]), "%d.%m.%Y")
+            if (transaction_date >= dates) and (transaction_date <= (dates + datetime.timedelta(weeks=13))):
                 if transaction_date not in new_dict:
-                    new_dict[f"{transaction_date}"] = float(
-                        abs(dicts["Сумма операции"])
-                    )
+                    new_dict[f"{transaction_date}"] = float(abs(dicts["Сумма операции"]))
                 else:
-                    new_dict[f"{transaction_date}"] += float(
-                        abs(dicts["Сумма операции"])
-                    )
+                    new_dict[f"{transaction_date}"] += float(abs(dicts["Сумма операции"]))
     return new_dict
 
 
@@ -67,12 +53,8 @@ def spending_by_workday(transactions: pd.DataFrame, date: Optional[str] = None) 
     list_of_dicts = transactions.to_dict(orient="records")
     for dicts in list_of_dicts:
         if str(dicts["Дата платежа"]) != "nan":
-            transaction_date = datetime.datetime.strptime(
-                str(dicts["Дата платежа"]), "%d.%m.%Y"
-            )
-            if (transaction_date >= dates) and (
-                transaction_date <= (dates + datetime.timedelta(weeks=13))
-            ):
+            transaction_date = datetime.datetime.strptime(str(dicts["Дата платежа"]), "%d.%m.%Y")
+            if (transaction_date >= dates) and (transaction_date <= (dates + datetime.timedelta(weeks=13))):
                 int_count_date = transaction_date.weekday()
                 if (int_count_date >= 0) and (int_count_date < 6):
                     sum_workday += abs(int(dicts["Сумма операции"]))
