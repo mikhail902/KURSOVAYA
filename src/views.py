@@ -32,7 +32,10 @@ def home(path: str) -> any:
                 "greeting": time_of_day(),
                 "cards": sort_transactions_by_amount(dict_of_excel_file),
                 "top_transactions": sort_list,
-                "currency_rates": get_usd_rate_apilayer_convert("tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"),
+                "currency_rates": [
+                    get_usd_rate_apilayer_convert("tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"),
+                    get_eur_rate_apilayer_convert("tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"),
+                ],
             }
             json.dump(data, f, indent=4, ensure_ascii=False)
             return data

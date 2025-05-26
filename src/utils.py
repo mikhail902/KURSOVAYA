@@ -255,7 +255,10 @@ def get_usd_rate_apilayer_convert(api_key):
             print(data)
             return None
 
-        return {"currency": "USD", "rate": str(usd_rate)}
+        return {
+            "currency": "USD",
+            "rate": str(usd_rate),
+        }
     except requests.exceptions.RequestException as e:
         print(f"Ошибка при выполнении запроса (apilayer /convert): {e}")
         return None
@@ -265,3 +268,61 @@ def get_usd_rate_apilayer_convert(api_key):
     except KeyError as e:
         print(f"Ошибка: Не найден ключ {e} в ответе API (apilayer /convert)")
         return None
+
+
+def get_eur_rate_apilayer_convert(api_key):
+
+    api_url = "https://api.apilayer.com/exchangerates_data/convert"
+    headers = {"apikey": api_key}
+    params = {"to": "RUB", "from": "EUR", "amount": 1}
+    try:
+        response = requests.get(api_url, headers=headers, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        if "result" in data:
+            usd_rate = data["result"]
+        else:
+            print("Не удалось найти курс доллара в JSON ответе (apilayer /convert).")
+            print(data)
+            return None
+
+        return {
+            "currency": "EUR",
+            "rate": str(usd_rate),
+        }
+    except requests.exceptions.RequestException as e:
+        print(f"Ошибка при выполнении запроса (apilayer /convert): {e}")
+        return None
+    except ValueError as e:
+        print(f"Ошибка при разборе JSON (apilayer /convert): {e}")
+        return None
+    except KeyError as e:
+        print(f"Ошибка: Не найден ключ {e} в ответе API (apilayer /convert)")
+        return None
+
+
+import requests
+import json
+
+
+def get_stock_price():
+    api_url = "https://api.apilayer.com/exchangerates_data/convert"
+    headers = {"apikey": "tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"}
+    params = {"to": "EUR", "from": "AMZN", "amount": 1}
+
+    response = requests.get(api_url, headers=headers, params=params)
+
+    response.raise_for_status()
+    data = response.json()
+
+    if "result" in data:
+        usd_rate = data["result"]
+    return {
+        "currency": "EUR",
+        "rate": str(usd_rate),
+    }
+
+
+if __name__ == "__main__":
+    print(get_stock_price())
