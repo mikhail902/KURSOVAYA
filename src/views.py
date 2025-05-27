@@ -40,7 +40,7 @@ def home(path: str) -> any:
                     get_usd_rate_apilayer_convert(API_KEY),
                     get_eur_rate_apilayer_convert(API_KEY),
                 ],
-                "stock_rates":get_stock_price()
+                "stock_rates": get_stock_price(),
             }
             json.dump(data, f, indent=4, ensure_ascii=False)
             return data
@@ -60,6 +60,6 @@ def events(path, transactions, target_date_str, range_type="m"):
             "transfers_and_cash": sum_for_two_categories(filtered_list_by_date),
             "income": sum_for_ap_categories(filtered_list_by_date),
             "currency_rate": [get_usd_rate_apilayer_convert(API_KEY), get_eur_rate_apilayer_convert(API_KEY)],
-            "stock_rates":get_stock_price()
+            "stock_rates": get_stock_price(),
         }
         json.dump(data, f, indent=4, ensure_ascii=False)

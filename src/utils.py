@@ -304,16 +304,16 @@ def get_eur_rate_apilayer_convert(api_key):
 
 
 def get_stock_price():
-    data = [{},{},{},{},{}]
+    data = [{}, {}, {}, {}, {}]
     k = 0
     user_stocks = ["AAPL", "AMZN", "GOOGL", "MSFT", "TSLA"]
     for i in user_stocks:
-        api_url = 'https://api.api-ninjas.com/v1/stockprice?ticker={}'.format(i)
-        response = requests.get(api_url, headers={'X-Api-Key': API_KEY2})
+        api_url = "https://api.api-ninjas.com/v1/stockprice?ticker={}".format(i)
+        response = requests.get(api_url, headers={"X-Api-Key": API_KEY2})
         if response.status_code == requests.codes.ok:
             stock = response.json()
-            price = stock['price']
-            stock_price = {"ticker":i, "price in USD":price}
-            data[k]=stock_price
-            k+=1
+            price = stock["price"]
+            stock_price = {"ticker": i, "price in USD": price}
+            data[k] = stock_price
+            k += 1
     return data
