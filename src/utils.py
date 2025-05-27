@@ -7,8 +7,9 @@ import pandas as pd
 import requests
 from dotenv import load_dotenv
 
-load_dotenv(".env")
+load_dotenv()
 API_KEY = os.getenv("API_KEY")
+API_KEY2 = os.getenv("API_KEY2")
 PATH_TO_EXCEL = "C:/Users/Sator/PycharmProjects/KURSOVAYA/data/operations.xlsx"
 
 
@@ -302,27 +303,17 @@ def get_eur_rate_apilayer_convert(api_key):
         return None
 
 
-import requests
-import json
-
-
 def get_stock_price():
-    api_url = "https://api.apilayer.com/exchangerates_data/convert"
-    headers = {"apikey": "tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"}
-    params = {"to": "EUR", "from": "AMZN", "amount": 1}
-
-    response = requests.get(api_url, headers=headers, params=params)
-
-    response.raise_for_status()
-    data = response.json()
-
-    if "result" in data:
-        usd_rate = data["result"]
-    return {
-        "currency": "EUR",
-        "rate": str(usd_rate),
-    }
-
-
-if __name__ == "__main__":
-    print(get_stock_price())
+    data = [{}, {}, {}, {}, {}]
+    k = 0
+    user_stocks = ["AAPL", "AMZN", "GOOGL", "MSFT", "TSLA"]
+    for i in user_stocks:
+        api_url = "https://api.api-ninjas.com/v1/stockprice?ticker={}".format(i)
+        response = requests.get(api_url, headers={"X-Api-Key": API_KEY2})
+        if response.status_code == requests.codes.ok:
+            stock = response.json()
+            price = stock["price"]
+            stock_price = {"ticker": i, "price in USD": price}
+            data[k] = stock_price
+            k += 1
+    return data

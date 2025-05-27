@@ -2,9 +2,13 @@ import json
 from datetime import datetime
 
 from src.utils import *
+from dotenv import load_dotenv
 
 PATH_TO_EXCEL = "C:/Users/Sator/PycharmProjects/KURSOVAYA/data/operations.xlsx"
 PATH_TO_JSON = "C:/Users/Sator/PycharmProjects/KURSOVAYA/data/answer.json"
+
+load_dotenv()
+API_KEY = os.getenv("API_KEY")
 
 
 def time_of_day():
@@ -33,9 +37,10 @@ def home(path: str) -> any:
                 "cards": sort_transactions_by_amount(dict_of_excel_file),
                 "top_transactions": sort_list,
                 "currency_rates": [
-                    get_usd_rate_apilayer_convert("tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"),
-                    get_eur_rate_apilayer_convert("tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"),
+                    get_usd_rate_apilayer_convert(API_KEY),
+                    get_eur_rate_apilayer_convert(API_KEY),
                 ],
+                "stock_rates": get_stock_price(),
             }
             json.dump(data, f, indent=4, ensure_ascii=False)
             return data
@@ -54,6 +59,7 @@ def events(path, transactions, target_date_str, range_type="m"):
             },
             "transfers_and_cash": sum_for_two_categories(filtered_list_by_date),
             "income": sum_for_ap_categories(filtered_list_by_date),
-            "currency_rate": get_usd_rate_apilayer_convert("tP6pidXH3QMCPZmCOPfsyXE8CQxsvxMk"),
+            "currency_rate": [get_usd_rate_apilayer_convert(API_KEY), get_eur_rate_apilayer_convert(API_KEY)],
+            "stock_rates": get_stock_price(),
         }
         json.dump(data, f, indent=4, ensure_ascii=False)
