@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 import datetime
 import pandas as pd
-
+import functools
 
 def spending_by_category(transactions: pd.DataFrame, category: str, date: Optional[str] = None) -> list:
     """Функция трат по категория"""
@@ -67,3 +67,27 @@ def spending_by_workday(transactions: pd.DataFrame, date: Optional[str] = None) 
         "Выходной день": round(sum_weekday / count_sum_weekday, 2),
     }
     return new_dict
+
+
+def save_report_to_file(file_path):
+    """Декоратор для функций-отчетов, который записывает результат выполнения функции в файл"""
+    def decorator_report(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            result = func(*args, **kwargs)
+
+            now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            report_text = f"Отчет сгенерирован: {now}\n\n{result}\n{'-' * 40}\n"
+
+            with open(file_path, 'a', encoding='utf-8') as f:
+                f.write(report_text)
+
+            return result
+
+        return wrapper
+
+    return decorator_report
+
+@save_report_to_file("answer.json")
+def generate_report():
+    return "Это содержимое отчета."
