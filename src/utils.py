@@ -239,7 +239,8 @@ def analyze_for_cashback(data: list, y, m):
 import requests
 
 
-def get_usd_rate_apilayer_convert(api_key):
+def get_usd_rate_apilayer_convert(api_key: str) -> any:
+    "Получение перевода из рублей в доллары"
 
     api_url = "https://api.apilayer.com/exchangerates_data/convert"
     headers = {"apikey": api_key}
@@ -271,7 +272,8 @@ def get_usd_rate_apilayer_convert(api_key):
         return None
 
 
-def get_eur_rate_apilayer_convert(api_key):
+def get_eur_rate_apilayer_convert(api_key: str) -> any:
+    "Получение перевода из рублей в евро"
 
     api_url = "https://api.apilayer.com/exchangerates_data/convert"
     headers = {"apikey": api_key}
@@ -304,6 +306,7 @@ def get_eur_rate_apilayer_convert(api_key):
 
 
 def get_stock_price():
+    "Акции"
     data = [{}, {}, {}, {}, {}]
     k = 0
     user_stocks = ["AAPL", "AMZN", "GOOGL", "MSFT", "TSLA"]

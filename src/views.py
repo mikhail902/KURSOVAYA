@@ -48,7 +48,7 @@ def home(path: str) -> any:
         return []
 
 
-def events(path, transactions, target_date_str, range_type="m"):
+def events(path: str, transactions, target_date_str: str, range_type: str = "m") -> any:
     """Функция считывающая список платежей, дату и параметр поиска формирующий список"""
     with open(path, "w", encoding="utf-8") as f:
         filtered_list_by_date = filter_transactions_by_range(transactions, target_date_str)
