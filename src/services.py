@@ -33,7 +33,7 @@ def categories_with_up_cashback(data, year, month):
     return dict_of_categories
 
 
-def investment_bank(month: str, transactions: list[dict[str, any]], limit: float) -> list:
+def investment_bank(month: str, transactions: list[dict[str, str]], limit: float) -> list:
     """Фуекция логики страницы инвесткопилка"""
     sorted_by_date = sort_by_date(transactions)
     new_list = []
